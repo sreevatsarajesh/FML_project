@@ -2,58 +2,15 @@
 
 A machine-learning-based phishing website detection system that analyzes numerical characteristics derived from URLs and classifies websites as **legitimate** or **phishing**.
 
-The project combines supervised machine learning, feature selection, probabilistic prediction, risk scoring, and model explainability into a single pipeline with a web-based interface.
+The project combines a machine-learning research pipeline with a Flask-based web application for real-time URL analysis.
 
 ---
 
 ## Project Overview
 
-Phishing websites attempt to deceive users into revealing sensitive information by imitating legitimate websites or services.
+The project uses supervised machine learning to detect potentially phishing websites from URL-derived features.
 
-Traditional phishing detection approaches often rely on manually maintained blacklists. While useful, blacklist-based approaches can struggle with newly created or previously unseen malicious URLs.
-
-This project explores a feature-based machine learning approach. Numerical characteristics extracted from URLs are used to train classification models that distinguish between legitimate and phishing websites.
-
-The system additionally provides:
-
-* Probabilistic predictions
-* Risk scoring
-* Feature selection
-* Model comparison
-* Model evaluation
-* Explainability
-* A web interface for URL prediction
-
-The project evaluates **Logistic Regression, Decision Tree, and Random Forest** models as described in the project methodology.
-
----
-
-## Objectives
-
-The primary objectives of the project are:
-
-1. Develop an automated machine-learning system for classifying URLs as legitimate or phishing.
-2. Compare multiple supervised classification algorithms.
-3. Use preprocessing and feature selection to improve the machine-learning pipeline.
-4. Generate probabilistic predictions for detected URLs.
-5. Convert prediction probabilities into an interpretable risk score.
-6. Provide feature-level explanations for model predictions.
-7. Evaluate the models using multiple classification metrics.
-8. Integrate the trained prediction pipeline with a web application.
-
----
-
-## Dataset
-
-The project uses the **Web Page Phishing Dataset** created by **Daniel Fernando** and published on Kaggle.
-
-**Dataset source:**
-
-[Web Page Phishing Dataset — Kaggle](https://www.kaggle.com/datasets/danielfernandon/web-page-phishing-dataset?resource=download&utm_source=chatgpt.com)
-
-The dataset contains numerical features derived from web-page/URL characteristics for phishing detection. The project synopsis identifies the dataset as containing **100,007 instances** of URL-derived numerical feature vectors.
-
-The dataset is used as the basis for:
+The machine-learning side of the project focuses on:
 
 * Dataset inspection
 * Data preprocessing
@@ -63,68 +20,53 @@ The dataset is used as the basis for:
 * Model evaluation
 * Explainability
 
-The dataset should be placed under:
+The application side focuses on:
 
-```text
-data/phishing_detection/
-```
+* URL input
+* URL feature extraction
+* Prediction
+* Probability output
+* Risk scoring
+* Explanation display
+* Flask backend
+* Web interface
 
----
+The project evaluates:
 
-## Machine Learning Pipeline
+* Logistic Regression
+* Decision Tree
+* Random Forest
 
-The overall pipeline follows these stages:
-
-```text
-Dataset
-   │
-   ▼
-Dataset Inspection
-   │
-   ▼
-Preprocessing
-   │
-   ▼
-Exploratory Analysis
-   │
-   ▼
-Feature Selection
-   │
-   ▼
-Model Training
-   │
-   ├── Logistic Regression
-   ├── Decision Tree
-   └── Random Forest
-   │
-   ▼
-Model Evaluation
-   │
-   ▼
-Prediction
-   │
-   ▼
-Risk Scoring
-   │
-   ▼
-Explainability
-   │
-   ▼
-Web Application
-```
-
-The project methodology specifically includes data-quality inspection, class-distribution analysis, feature analysis, model training, probabilistic prediction, feature-level explanation, and evaluation using Accuracy, Precision, Recall, F1-Score, ROC-AUC, and Confusion Matrices.
+The project synopsis describes the same overall methodology, including preprocessing, feature analysis, probabilistic prediction, risk scoring, explainability, and model evaluation.
 
 ---
 
-## Repository Structure
+# Dataset
+
+The project uses the **Web Page Phishing Dataset** by Daniel Fernando from Kaggle.
+
+Dataset:
+
+[Web Page Phishing Dataset — Kaggle](https://www.kaggle.com/datasets/danielfernandon/web-page-phishing-dataset?resource=download)
+
+The project synopsis identifies this dataset as containing 100,007 instances of URL-derived numerical feature vectors for phishing detection.
+
+The dataset is used for:
+
+* Dataset inspection
+* Preprocessing
+* Exploratory analysis
+* Feature selection
+* Model training
+* Model evaluation
+* Explainability
+
+---
+
+# Project Architecture
 
 ```text
 FML_project/
-│
-├── data/
-│   └── phishing_detection/
-│       └── data.csv
 │
 ├── app/
 │   ├── app.py
@@ -133,6 +75,10 @@ FML_project/
 │   └── static/
 │       ├── style.css
 │       └── script.js
+│
+├── data/
+│   └── phishing_detection/
+│       └── phishing.csv
 │
 ├── notebooks/
 │   ├── 01_dataset_inspection.ipynb
@@ -145,211 +91,494 @@ FML_project/
 │
 ├── src/
 │   ├── __init__.py
+│   ├── preprocessing.py
+│   ├── feature_selection.py
+│   ├── train_models.py
 │   ├── evaluate_models.py
 │   ├── explain.py
-│   ├── feature_selection.py
+│   ├── feature_extraction.py
 │   ├── predict.py
-│   ├── preprocessing.py
-│   ├── risk_scoring.py
-│   └── train_models.py
+│   └── risk_scoring.py
+│
+├── models/
+│   └── trained model files
+│
+├── results/
+│   ├── metrics/
+│   └── figures/
 │
 ├── tests/
 │
+├── config/
+│   └── config.yaml
+│
 ├── .gitignore
-├── README.md
-└── requirements.txt
+├── requirements.txt
+└── README.md
 ```
 
 ---
 
-## Directory Responsibilities
+# Team Responsibilities
 
-### `data/`
+## Vatsa — ML / Research Workstream
 
-Contains the dataset used for training and evaluation.
+Vatsa is responsible for developing and validating the machine-learning pipeline.
+
+### Dataset Inspection
 
 ```text
-data/
-└── phishing_detection/
-    └── data.csv
+notebooks/01_dataset_inspection.ipynb
 ```
 
-Large datasets and generated artifacts should generally not be committed unless required by the project.
+Tasks:
+
+* Inspect dataset shape
+* Identify columns
+* Identify target column
+* Inspect data types
+* Check missing values
+* Check duplicates
+* Analyze class distribution
+* Understand feature meanings
 
 ---
 
-### `notebooks/`
+### Data Preprocessing
 
-The notebooks document the experimental machine-learning workflow.
+```text
+notebooks/02_data_preprocessing.ipynb
+src/preprocessing.py
+```
 
-| Notebook                        | Purpose                                                          |
-| ------------------------------- | ---------------------------------------------------------------- |
-| `01_dataset_inspection.ipynb`   | Inspect dataset structure, missing values, duplicates and labels |
-| `02_data_preprocessing.ipynb`   | Clean and transform the dataset                                  |
-| `03_exploratory_analysis.ipynb` | Analyze distributions, correlations and feature behaviour        |
-| `04_feature_selection.ipynb`    | Identify relevant features                                       |
-| `05_model_training.ipynb`       | Train the classification models                                  |
-| `06_model_evaluation.ipynb`     | Compare model performance                                        |
-| `07_explainability.ipynb`       | Analyze model decisions and feature influence                    |
+Tasks:
+
+* Clean dataset
+* Remove duplicates if required
+* Handle missing values
+* Separate features and target
+* Create train/test split
+* Apply required preprocessing
+* Save preprocessing information where required
 
 ---
 
-### `src/`
+### Exploratory Analysis
 
-Contains reusable Python modules used by the machine-learning pipeline.
+```text
+notebooks/03_exploratory_analysis.ipynb
+```
 
-#### `preprocessing.py`
+Tasks:
 
-Responsible for preparing input data for the models.
+* Class distribution
+* Feature distributions
+* Correlation analysis
+* Outlier analysis
+* Relationships between features and target
 
-Possible responsibilities include:
+---
 
-* Data cleaning
-* Handling missing values
-* Feature transformations
-* Scaling
-* Preparing model-compatible feature vectors
+### Feature Selection
 
-#### `feature_selection.py`
+```text
+notebooks/04_feature_selection.ipynb
+src/feature_selection.py
+```
 
-Contains the feature-selection logic used to identify relevant URL characteristics.
+Tasks:
 
-#### `train_models.py`
+* Determine relevant features
+* Identify redundant features
+* Determine final feature set
+* Establish exact feature order
 
-Responsible for training the machine-learning models.
+The final feature order is particularly important because the application must generate features in exactly the same order expected by the trained model.
 
-Models considered in the project include:
+---
+
+### Model Training
+
+```text
+notebooks/05_model_training.ipynb
+src/train_models.py
+```
+
+Models:
 
 * Logistic Regression
 * Decision Tree
 * Random Forest
 
-#### `evaluate_models.py`
+The notebooks are used for experimentation and model development.
 
-Contains model evaluation functionality.
+Final trained models may be exported to:
 
-Evaluation metrics include:
+```text
+models/
+```
+
+For example:
+
+```text
+models/
+├── logistic_regression.pkl
+├── decision_tree.pkl
+├── random_forest.pkl
+└── scaler.pkl
+```
+
+---
+
+### Model Evaluation
+
+```text
+notebooks/06_model_evaluation.ipynb
+src/evaluate_models.py
+```
+
+Metrics:
 
 * Accuracy
 * Precision
 * Recall
-* F1-Score
+* F1-score
 * ROC-AUC
-* Confusion Matrix
+* Confusion matrix
 
-#### `predict.py`
+Results are stored under:
 
-Provides the prediction interface used by the application.
-
-The application should call this module rather than implementing machine-learning prediction logic directly inside `app.py`.
-
-#### `risk_scoring.py`
-
-Converts model prediction information/probabilities into an interpretable phishing-risk score.
-
-#### `explain.py`
-
-Provides feature-level information explaining why a prediction was produced.
+```text
+results/
+├── metrics/
+└── figures/
+```
 
 ---
 
-## Web Application
-
-The web application provides a simple interface for submitting a URL and receiving a phishing-detection result.
+### Explainability
 
 ```text
-Browser
-   │
-   ▼
-app/app.py
-   │
-   ▼
+notebooks/07_explainability.ipynb
+src/explain.py
+```
+
+Tasks:
+
+* Feature importance
+* Logistic Regression coefficients
+* Important URL characteristics
+* Prediction explanations
+
+---
+
+# You — Application / System Workstream
+
+The application side connects the trained machine-learning system to a real URL.
+
+## Frontend
+
+```text
+app/templates/index.html
+app/static/style.css
+app/static/script.js
+```
+
+Responsibilities:
+
+* URL input
+* Analyze button
+* Result display
+* Probability display
+* Risk-level display
+* Explanation display
+* Error handling
+* Responsive UI
+
+---
+
+## URL Feature Extraction
+
+```text
+src/feature_extraction.py
+```
+
+This module accepts a raw URL and generates the same feature representation expected by the trained model.
+
+Example:
+
+```text
+https://example.com/login
+        │
+        ▼
+Feature Extraction
+        │
+        ▼
+[url_length, n_dots, n_hyphens, ...]
+        │
+        ▼
+Model-compatible feature vector
+```
+
+This module will be finalized only after the ML workstream provides:
+
+* Complete feature list
+* Exact feature order
+* Target column
+* Required preprocessing
+* Feature definitions
+
+---
+
+## Prediction Pipeline
+
+```text
 src/predict.py
-   │
-   ├── preprocessing.py
-   ├── trained model
-   ├── risk_scoring.py
-   └── explain.py
-   │
-   ▼
-Prediction Result
-   │
-   ▼
-HTML Response
 ```
 
-The Flask application is intentionally kept separate from the machine-learning implementation.
-
----
-
-## Prediction Flow
-
-A typical prediction request follows this process:
+The prediction pipeline will eventually perform:
 
 ```text
-User enters URL
-       │
-       ▼
-Flask application
-       │
-       ▼
-Validate input
-       │
-       ▼
-Extract / construct URL features
-       │
-       ▼
-Preprocess features
-       │
-       ▼
-Load trained model
-       │
-       ▼
-Generate prediction probability
-       │
-       ▼
-Calculate risk score
-       │
-       ▼
-Generate explanation
-       │
-       ▼
-Display result
+Raw URL
+   ↓
+Feature Extraction
+   ↓
+Preprocessing
+   ↓
+Trained Model
+   ↓
+Prediction
+   ↓
+Probability
 ```
+
+The prediction module should remain independent of Flask so it can be tested separately.
 
 ---
 
-## Model Output
-
-The application is intended to expose information such as:
+## Risk Scoring
 
 ```text
-URL: example.com
-
-Prediction: Legitimate
-
-Phishing Probability: 12.4%
-
-Risk Score: 12/100
-
-Explanation:
-- Low URL complexity
-- Low suspicious-symbol frequency
-- No major redirection indicators
+src/risk_scoring.py
 ```
 
-The exact explanation depends on the implementation of the model and `explain.py`.
+The module converts the model probability into an application-level risk score.
+
+```text
+Model Probability
+       ↓
+Risk Score
+       ↓
+Risk Level
+```
+
+The exact thresholds will be finalized during development.
 
 ---
 
-## Installation
+## Flask Backend
 
-Clone the repository:
-
-```bash
-git clone <repository-url>
-cd FML_project
+```text
+app/app.py
 ```
+
+Responsibilities:
+
+* Receive URL
+* Validate request
+* Call feature extraction
+* Call prediction pipeline
+* Call risk scoring
+* Obtain explanation
+* Return result to frontend
+
+The Flask layer should not contain model-training logic.
+
+---
+
+# Complete Application Flow
+
+```text
+User
+ │
+ │ enters URL
+ ▼
+Frontend
+ │
+ │ POST request
+ ▼
+Flask
+ │
+ ▼
+Feature Extraction
+ │
+ ▼
+Preprocessing
+ │
+ ▼
+Trained ML Model
+ │
+ ├── Logistic Regression
+ ├── Decision Tree
+ └── Random Forest
+ │
+ ▼
+Prediction + Probability
+ │
+ ▼
+Risk Scoring
+ │
+ ▼
+Explanation
+ │
+ ▼
+Flask Response
+ │
+ ▼
+Frontend
+ │
+ ▼
+Result
+```
+
+---
+
+# Current Development Plan
+
+The project is being developed in stages.
+
+## Stage 1 — ML Foundation
+
+**Vatsa**
+
+```text
+01_dataset_inspection.ipynb
+        ↓
+02_data_preprocessing.ipynb
+        ↓
+03_exploratory_analysis.ipynb
+        ↓
+04_feature_selection.ipynb
+```
+
+The key output of this stage is the finalized model input specification.
+
+---
+
+## Stage 2 — Backend Skeleton
+
+**Application/System workstream**
+
+While Vatsa works on preprocessing and feature analysis, the application side can be developed independently.
+
+Initial work:
+
+```text
+app/app.py
+src/predict.py
+src/risk_scoring.py
+tests/
+index.html
+style.css
+script.js
+```
+
+At this stage, placeholder prediction data can be used to verify frontend/backend communication.
+
+---
+
+## Stage 3 — Model Development
+
+**Vatsa**
+
+```text
+05_model_training.ipynb
+        ↓
+06_model_evaluation.ipynb
+        ↓
+07_explainability.ipynb
+```
+
+Models are trained and evaluated in Jupyter notebooks before being exported for application use.
+
+---
+
+## Stage 4 — Integration
+
+Once the ML specification is finalized:
+
+```text
+Raw URL
+   ↓
+feature_extraction.py
+   ↓
+preprocessing.py
+   ↓
+trained model
+   ↓
+predict.py
+   ↓
+risk_scoring.py
+   ↓
+explain.py
+   ↓
+Flask
+   ↓
+Frontend
+```
+
+Initially, at least one trained model will be integrated into the application before expanding the system to the remaining models.
+
+---
+
+# Current Milestone
+
+The immediate development goal is:
+
+### Vatsa
+
+Complete:
+
+* Dataset inspection
+* Data preprocessing
+* Initial feature analysis
+* Establish the final model input format
+
+### Application/System
+
+Complete:
+
+* Flask backend skeleton
+* Frontend structure
+* Prediction pipeline skeleton
+* Risk-scoring skeleton
+* Basic tests
+
+### Integration checkpoint
+
+After the ML preprocessing/input format is finalized:
+
+```text
+Feature Specification
+        ↓
+Feature Extraction
+        ↓
+Prediction Pipeline
+        ↓
+ONE trained model
+        ↓
+Probability
+        ↓
+Risk Score
+        ↓
+Frontend
+```
+
+This provides an end-to-end working prototype before integrating the remaining models.
+
+---
+
+# Installation
 
 Create a virtual environment:
 
@@ -363,12 +592,6 @@ Activate it on Windows:
 .venv\Scripts\activate
 ```
 
-Activate it on Linux/macOS:
-
-```bash
-source .venv/bin/activate
-```
-
 Install dependencies:
 
 ```bash
@@ -377,121 +600,55 @@ pip install -r requirements.txt
 
 ---
 
-## Running the Application
+# Running the Application
 
 From the project root:
 
 ```bash
-python app/app.py
+python -m app.app
 ```
 
-The Flask development server should then provide a local address such as:
+The application will be available at:
 
 ```text
 http://127.0.0.1:5000
 ```
 
-Open the address in a browser and submit a URL for analysis.
-
 ---
 
-## Testing
+# Testing
 
-Tests are stored in:
-
-```text
-tests/
-```
-
-Run the test suite using:
+Run:
 
 ```bash
 pytest
 ```
 
-Tests should cover, where applicable:
-
-* URL input validation
-* Prediction pipeline
-* Risk-score generation
-* Invalid input handling
-* Application routes
-* Model loading
-* Prediction output format
+Tests cover the prediction pipeline, risk scoring, model integration, and application components as they are implemented.
 
 ---
 
-## Limitations
+# Limitations
 
-This system is a machine-learning research/academic project and should not be treated as a complete real-world phishing protection system.
+The system is an academic machine-learning project.
 
-Potential limitations include:
+A prediction is probabilistic and may result in false positives or false negatives. URL-derived features alone may also fail to capture every characteristic of a malicious website.
 
-* The model is dependent on the characteristics represented in the training dataset.
-* Previously unseen URL patterns may not be represented adequately.
-* A machine-learning prediction is probabilistic and can produce false positives or false negatives.
-* URL-based numerical features alone cannot capture every property of a website.
-* The risk score is an interpretation of model output rather than a definitive measure of security.
+The risk score is an interpretation of model output and should not be treated as an absolute security measurement.
 
 ---
 
-## Future Improvements
-
-Potential extensions include:
-
-* Real-time URL feature extraction
-* Larger and more diverse datasets
-* Additional classification algorithms
-* Hyperparameter optimization
-* SHAP-based explanations
-* Model versioning
-* API deployment
-* Authentication and rate limiting
-* Real-time threat-intelligence integration
-* Continuous model evaluation
-* Automated model retraining
-
----
-
-## Team Contributions
-
-The project is divided into machine-learning and application components.
-
-### Machine Learning
-
-* Dataset inspection
-* Preprocessing
-* Exploratory analysis
-* Feature selection
-* Model training
-* Model evaluation
-* Explainability
-* Prediction pipeline
-* Risk scoring
-
-### Application
-
-* `app/app.py`
-* `app/templates/index.html`
-* `app/static/style.css`
-* `app/static/script.js`
-* `tests/`
-* Web integration with the ML pipeline
-
----
-
-## References
+# Dataset and References
 
 1. Daniel Fernando, **Web Page Phishing Dataset**, Kaggle.
-   [Dataset page](https://www.kaggle.com/datasets/danielfernandon/web-page-phishing-dataset?resource=download&utm_source=chatgpt.com)
 2. Aurélien Géron, *Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow*.
 3. Max Kuhn and Kjell Johnson, *Applied Predictive Modeling*.
-4. Leo Breiman, *Random Forests*, Machine Learning, Vol. 45, No. 1.
+4. Leo Breiman, *Random Forests*.
 5. Trevor Hastie, Robert Tibshirani, and Jerome Friedman, *The Elements of Statistical Learning*.
 
 ---
 
-## Authors
+# Authors
 
 **Dheeman Thakur**   - **240957082**<br>
 **Sreevatsa Rajesh** - **240957021**<br>
@@ -499,6 +656,3 @@ The project is divided into machine-learning and application components.
 
 Department of Computer Science
 Manipal Institute of Technology, Manipal
-
-Course: V Sem B.Tech (Mathematics & Computing) – Fundamentals of Machine Learning
-The project synopsis identifies the same authors, course, institution, and project methodology.
