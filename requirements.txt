@@ -1,4 +1,4 @@
-Flask
+fastapi
 numpy
 pandas 
 scikit-learn

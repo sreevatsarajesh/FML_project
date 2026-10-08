@@ -1,20 +1,35 @@
-from flask import Flask, request, render_template
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+from pydantic import BaseModel
+
 from src.predict import predict_url
 from src.risk_scoring import Calc_Risk
-app = Flask('Phishing_Detection')
 
-@app.route("/")
+
+app = FastAPI(
+    title="Phishing Detection API",
+    description="API for detecting phishing URLs using machine learning",
+    version="1.0.0"
+)
+
+
+class URLRequest(BaseModel):
+    url: str
+
+
+@app.get("/", response_class=HTMLResponse)
 def HomePage():
-    return render_template("index.html")
-
-@app.route("/predict", methods=['POST'])
-def predict():
-        data = request.get_json()
-        URL = data["url"]
-        prob = predict_url(URL)
-        risk = Calc_Risk(prob)
-        return risk
-        
+    with open("app/templates/index.html", "r", encoding="utf-8") as file:
+        return file.read()
 
 
+@app.post("/predict")
+def predict(data: URLRequest):
 
+    URL = data.url
+
+    prob = predict_url(URL)
+
+    risk = Calc_Risk(prob)
+
+    return risk
