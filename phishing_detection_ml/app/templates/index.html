@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,21 +14,20 @@
     <main class="container">
         <h1>Phishing Detection</h1>
         <p>Enter a URL to check its phishing risk.</p>
+
         <form id="url-form">
             <label for="url-input">URL</label>
             <input
                 type="text"
                 id="url-input"
+                name="url"
                 placeholder="https://example.com"
                 required
             >
-            <button type="submit">
-                Check URL
-            </button>
+            <button type="submit" id="submit-button">Check URL</button>
         </form>
-        <section id="result">
-            <!-- Result will be displayed here -->
-        </section>
+
+        <section id="result" aria-live="polite"></section>
     </main>
     <script src="/static/script.js"></script>
 </body>
