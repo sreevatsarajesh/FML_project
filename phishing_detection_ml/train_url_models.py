@@ -1,24 +1,3 @@
-"""Train the NLP (char n-gram) and numeric (gradient boosting) URL models.
-
-Run from the phishing_detection_ml/ folder:
-
-    python train_url_models.py            # full run
-    python train_url_models.py --sample 60000   # quick smoke test
-
-What this fixes compared with the old training code
-  1. Same canonicalisation at train and predict time (src/url_utils.py).
-  2. Scheme / www / trailing-slash are removed, so 'https' and 'has a path'
-     can no longer be used as shortcuts for "phishing".
-  3. Every training URL also contributes a host-only example, so bare
-     domains such as 'google.com' are no longer 94% phishing in the eyes of
-     the model.
-  4. Train / validation / test are split by REGISTERED DOMAIN, so the test
-     numbers measure unseen sites, not memorised ones.
-  5. One fusion weight is chosen on validation and saved to
-     models/fusion_config.json (the app reads it - nothing is hard-coded).
-  6. The numeric model is ~1-2 MB instead of 645 MB.
-"""
-
 import argparse
 import json
 import sys
