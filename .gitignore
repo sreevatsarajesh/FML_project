@@ -94,3 +94,6 @@ data/interim/
 
 *.tmp
 *.temp
+phishing_detection_ml/models/*.pkl
+__pycache__/
+.DS_Store

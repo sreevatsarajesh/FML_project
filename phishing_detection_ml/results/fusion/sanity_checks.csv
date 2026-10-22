@@ -1,0 +1,12 @@
+expected,url,nlp,numeric,fused
+benign,google.com,0.69,0.737,0.711
+benign,https://www.google.com/,0.69,0.737,0.711
+benign,https://github.com,0.964,0.727,0.857
+benign,https://www.wikipedia.org/,0.314,0.688,0.482
+benign,https://www.amazon.com/,0.193,0.737,0.438
+benign,https://www.youtube.com/watch?v=abc123,0.0,0.085,0.038
+benign,https://stackoverflow.com/questions/12345/how-to-x,0.103,0.115,0.108
+phishing,http://paypal-login-verify.xyz/account,0.858,0.908,0.881
+phishing,http://192.168.10.5/secure/login.php?user=1&pass=2,0.226,0.633,0.409
+phishing,https://secure-update-apple-id.verify-account.top/signin,1.0,0.823,0.92
+phishing,http://amazon.com.account-verify.tk/login,0.666,0.829,0.739
