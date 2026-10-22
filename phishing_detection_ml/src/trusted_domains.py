@@ -37,7 +37,7 @@ TRUSTED_DOMAINS = {
     "indiatimes.com", "hindustantimes.com", "thehindu.com", "ndtv.com",
     "swiggy.com", "zomato.com", "paytm.com", "phonepe.com", "myntra.com",
     "naukri.com", "linkedin.cn", "baidu.com", "qq.com", "taobao.com",
-    "alibaba.com", "aliexpress.com", "yandex.ru", "vk.com", "naver.com",
+    "alibaba.com", "aliexpress.com", "yandex.ru", "vk.com", "naver.com","gov.uk"
 }
 
 UNTRUSTED_HOSTS = {
