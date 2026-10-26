@@ -1,0 +1,13 @@
+url,label,category
+https://example.com,0,legitimate
+https://www.example.com,0,legitimate
+https://github.com,0,legitimate
+https://www.github.com,0,legitimate
+https://google.com,0,legitimate
+https://www.google.com,0,legitimate
+https://wikipedia.org,0,legitimate
+https://www.wikipedia.org,0,legitimate
+https://github.com.example.com,1,deceptive_host
+https://example.com.evil.invalid,1,deceptive_host
+http://google.com.example.invalid,1,deceptive_host
+https://secure-login.example.invalid,1,suspicious_pattern

@@ -27,6 +27,7 @@ def _positive(model, X):
     return float(model.predict_proba(X)[0][list(model.classes_).index(1)])
 
 
+
 def _is_trusted_root(url: str) -> bool:
     try:
         value = url.strip()
@@ -42,7 +43,11 @@ def _is_trusted_root(url: str) -> bool:
         if parsed.path not in {"", "/"} or parsed.query or parsed.fragment:
             return False
 
-        return trusted_domain(url) is not None
+        host = (parsed.hostname or "").lower().rstrip(".")
+        domain = trusted_domain(url)
+
+        return domain is not None and host == domain
+
     except (ValueError, TypeError, AttributeError):
         return False
 
