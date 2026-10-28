@@ -37,7 +37,7 @@ TRUSTED_DOMAINS = {
     "indiatimes.com", "hindustantimes.com", "thehindu.com", "ndtv.com",
     "swiggy.com", "zomato.com", "paytm.com", "phonepe.com", "myntra.com",
     "naukri.com", "linkedin.cn", "baidu.com", "qq.com", "taobao.com",
-    "alibaba.com", "aliexpress.com", "yandex.ru", "vk.com", "naver.com","gov.uk"
+    "alibaba.com", "aliexpress.com", "yandex.ru", "vk.com", "naver.com","*.gov.uk","*.gov.in"
 }
 
 UNTRUSTED_HOSTS = {
@@ -49,23 +49,38 @@ UNTRUSTED_HOSTS = {
 
 
 def trusted_domain(url: str):
-    """Return an explicitly trusted registered domain, or None."""
     if not isinstance(url, str) or not url.strip():
         return None
 
     try:
         canon = canonicalize_url(url)
         host = get_host(canon).lower().rstrip(".")
+
         if not host or host in UNTRUSTED_HOSTS:
             return None
 
         domain = registered_domain(host)
+
         if not domain:
             return None
 
         if domain in TRUSTED_DOMAINS:
             return domain
 
+        for trusted in TRUSTED_DOMAINS:
+            if trusted.startswith("*."):
+                suffix = trusted[2:].lower()
+
+                if host == suffix or host.endswith("." + suffix):
+                    return suffix
+
+            elif trusted.startswith("*"):
+                suffix = trusted[1:].lower()
+
+                if suffix and (host == suffix or host.endswith("." + suffix)):
+                    return suffix
+
         return None
+
     except (ValueError, TypeError, AttributeError):
         return None

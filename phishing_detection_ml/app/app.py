@@ -1,11 +1,11 @@
 from pathlib import Path
 from src.fusion_v2 import NUMERIC_WEIGHT, THRESHOLD, predict_fused_url
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from src.fusion_v2 import NUMERIC_WEIGHT, predict_fused_url
 from src.risk_scoring import Calc_Risk
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -16,6 +16,14 @@ app = FastAPI(
     description="Detects phishing URLs using numeric + NLP model fusion "
                 "with a trusted-domain safety net",
     version="1.2.0",
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type"],
 )
 
 app.mount(
@@ -74,4 +82,5 @@ def predict(data: URLRequest):
         "Trusted_Domain": result["trusted_domain"],
         "Model": "Fusion",
         "Numeric_Weight": result["numeric_weight"],
+        "Threshold": THRESHOLD,
     }

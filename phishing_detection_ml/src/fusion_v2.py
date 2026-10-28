@@ -46,10 +46,14 @@ def _is_trusted_root(url: str) -> bool:
         host = (parsed.hostname or "").lower().rstrip(".")
         domain = trusted_domain(url)
 
-        return domain is not None and host == domain
+        return (
+            domain is not None
+            and (host == domain or host.endswith("." + domain))
+        )
 
     except (ValueError, TypeError, AttributeError):
         return False
+
 
 
 def predict_fused_url(url: str, numeric_weight: float = NUMERIC_WEIGHT) -> dict:
