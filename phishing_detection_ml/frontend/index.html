@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,20 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Space+Grotesk:wght@700;900&display=swap" rel="stylesheet">
-    
+
     <style>
         :root {
             --bg-color: #e2e8f0;
-            --panel-bg: #ffffff;
+            --panel-bg: #fff;
             --accent-yellow: #ffee00;
             --accent-cyan: #00ffff;
             --accent-red: #ff2a5f;
             --accent-green: #00ff66;
-            --text-main: #000000;
-            --border-stroke: 4px solid #000000;
-            --shadow-hard: 6px 6px 0px #000000;
-            --shadow-hard-lg: 10px 10px 0px #000000;
-            --shadow-hard-sm: 4px 4px 0px #000000;
+            --border-stroke: 4px solid #000;
+            --shadow-hard: 6px 6px 0 #000;
+            --shadow-hard-lg: 10px 10px 0 #000;
+            --shadow-hard-sm: 4px 4px 0 #000;
         }
 
         * {
@@ -31,223 +31,225 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            background-image: 
-                radial-gradient(#000000 15%, transparent 16%),
-                radial-gradient(#000000 15%, transparent 16%);
-            background-size: 30px 30px;
-            background-position: 0 0, 15px 15px;
             min-height: 100vh;
             padding: 2rem 1rem;
             display: flex;
             flex-direction: column;
             align-items: center;
+            color: #000;
+            background: var(--bg-color);
+            background-image:
+                radial-gradient(#000 15%, transparent 16%),
+                radial-gradient(#000 15%, transparent 16%);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
         }
 
-        /* Ticker Header */
         .ticker-wrap {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
+            overflow: hidden;
+            white-space: nowrap;
+            padding: .65rem 0;
+            margin-bottom: 2rem;
             background: var(--accent-yellow);
             border: var(--border-stroke);
             box-shadow: var(--shadow-hard);
-            overflow: hidden;
-            margin-bottom: 2rem;
-            white-space: nowrap;
-            padding: 0.5rem 0;
         }
 
         .ticker {
             display: inline-block;
-            animation: marquee 20s linear infinite;
+            font-size: .85rem;
             font-weight: 800;
-            font-size: 0.9rem;
-            text-transform: uppercase;
             letter-spacing: 2px;
+            animation: marquee 24s linear infinite;
         }
 
         @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
         }
 
-        /* Main Container */
         .container {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1400px;
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: minmax(300px, 370px) minmax(0, 1fr);
+            align-items: start;
             gap: 2rem;
         }
 
-        @media (min-width: 992px) {
-            .container {
-                grid-template-columns: 350px 1fr;
-            }
+        .sidebar,
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+            min-width: 0;
         }
 
-        /* Brutalist Box Element */
         .cyber-box {
+            min-width: 0;
+            padding: 1.5rem;
             background: var(--panel-bg);
             border: var(--border-stroke);
             box-shadow: var(--shadow-hard-lg);
-            padding: 1.5rem;
-            position: relative;
         }
 
         .cyber-box-header {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .5rem;
+            margin: -1.5rem -1.5rem 1.5rem;
+            padding: .8rem 1rem;
             background: #000;
             color: #fff;
-            padding: 0.5rem 1rem;
-            margin: -1.5rem -1.5rem 1.5rem -1.5rem;
             border-bottom: var(--border-stroke);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cyber-box-header .tag {
-            background: var(--accent-cyan);
-            color: #000;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border: 2px solid #000;
-        }
-
-        /* Form Controls */
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        label {
-            display: block;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-            font-size: 0.85rem;
-        }
-
-        input[type="text"], select, textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: var(--border-stroke);
-            background: #fff;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            font-weight: 700;
-            box-shadow: var(--shadow-hard-sm);
-            outline: none;
-            transition: transform 0.1s;
-        }
-
-        input[type="text"]:focus, select:focus, textarea:focus {
-            transform: translate(-2px, -2px);
-            box-shadow: 6px 6px 0px #000000;
-            background: #fffdf0;
-        }
-
-        /* Cyber Button */
-        .btn-brutal {
-            width: 100%;
-            padding: 1rem;
-            background: var(--accent-cyan);
-            color: #000;
             font-family: 'Space Grotesk', sans-serif;
             font-size: 1.25rem;
             font-weight: 900;
             text-transform: uppercase;
-            border: var(--border-stroke);
-            box-shadow: var(--shadow-hard);
-            cursor: pointer;
-            transition: all 0.1s ease;
-            display: block;
-            text-align: center;
-            text-decoration: none;
         }
 
-        .btn-brutal:hover {
-            background: var(--accent-yellow);
-            transform: translate(-3px, -3px);
-            box-shadow: 9px 9px 0px #000000;
+        .tag {
+            padding: 3px 7px;
+            border: 2px solid #000;
+            background: var(--accent-cyan);
+            color: #000;
+            font-size: .65rem;
+            white-space: nowrap;
         }
 
-        .btn-brutal:active {
-            transform: translate(3px, 3px);
-            box-shadow: 3px 3px 0px #000000;
-        }
-
-        .btn-danger {
-            background: var(--accent-red);
-            color: #fff;
-        }
-        .btn-danger:hover {
-            background: #ff0000;
-            color: #fff;
-        }
-
-        /* Status Badges & Gauges */
-        .status-panel {
+        .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1.2rem;
         }
 
         .status-card {
-            border: var(--border-stroke);
+            min-width: 0;
+            min-height: 145px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: .55rem;
             padding: 1rem;
+            border: var(--border-stroke);
             background: #fff;
             box-shadow: var(--shadow-hard-sm);
+            overflow: hidden;
         }
 
         .status-card .title {
-            font-size: 0.75rem;
+            color: #555;
+            font-size: .72rem;
             font-weight: 800;
+            line-height: 1.4;
             text-transform: uppercase;
-            color: #666;
         }
 
         .status-card .value {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
+            font-size: clamp(1.1rem, 1.5vw, 1.8rem);
             font-weight: 900;
-            margin-top: 0.25rem;
+            line-height: 1.2;
+            white-space: normal;
+            overflow-wrap: anywhere;
         }
 
-        /* Alert Banners */
-        .alert-brutal {
-            border: var(--border-stroke);
-            padding: 1rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow-hard-sm);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .status-card .metric-note {
+            font-size: .65rem;
+            font-weight: 700;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
         }
 
-        .alert-danger {
+        .metric-cyan { background: var(--accent-cyan); }
+        .metric-yellow { background: var(--accent-yellow); }
+        .metric-green { background: var(--accent-green); }
+
+        .metric-red {
             background: var(--accent-red);
             color: #fff;
         }
 
-        .alert-success {
-            background: var(--accent-green);
-            color: #000;
+        .metric-red .title { color: #fff; }
+
+        .input-group { margin-bottom: 1.5rem; }
+
+        label {
+            display: block;
+            margin-bottom: .6rem;
+            font-size: .85rem;
+            font-weight: 800;
+            text-transform: uppercase;
         }
 
+        input[type="text"] {
+            width: 100%;
+            min-width: 0;
+            padding: 1rem;
+            border: var(--border-stroke);
+            background: #fff;
+            box-shadow: var(--shadow-hard-sm);
+            outline: none;
+            font-size: .9rem;
+            font-weight: 700;
+        }
+
+        input[type="text"]:focus {
+            background: #fffdf0;
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 #000;
+        }
+
+        .btn-brutal {
+            width: 100%;
+            padding: 1rem;
+            border: var(--border-stroke);
+            box-shadow: var(--shadow-hard);
+            background: var(--accent-yellow);
+            color: #000;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform .1s, box-shadow .1s;
+        }
+
+        .btn-brutal:hover {
+            transform: translate(-3px, -3px);
+            box-shadow: 9px 9px 0 #000;
+            background: var(--accent-cyan);
+        }
+
+        .btn-brutal:disabled {
+            opacity: .7;
+            cursor: wait;
+        }
+
+        .alert-brutal {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            border: var(--border-stroke);
+            box-shadow: var(--shadow-hard-sm);
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .alert-danger { background: var(--accent-red); color: #fff; }
+        .alert-success { background: var(--accent-green); color: #000; }
+
         .alert-icon {
+            flex-shrink: 0;
             font-size: 2rem;
             line-height: 1;
         }
 
-        /* Data Tables */
         .table-wrap {
             overflow-x: auto;
             border: var(--border-stroke);
@@ -259,141 +261,236 @@
             border-collapse: collapse;
             background: #fff;
             text-align: left;
-            font-size: 0.85rem;
+            font-size: .8rem;
         }
 
         th {
+            padding: .85rem 1rem;
             background: #000;
             color: #fff;
-            padding: 0.75rem 1rem;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.9rem;
-            text-transform: uppercase;
             border-right: 2px solid #333;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: .8rem;
+            text-transform: uppercase;
         }
 
         td {
-            padding: 0.75rem 1rem;
-            border-bottom: 2px solid #000;
+            padding: .85rem 1rem;
             border-right: 2px solid #000;
+            border-bottom: 2px solid #000;
             font-weight: 700;
+            overflow-wrap: anywhere;
         }
 
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f8fafc;
-        }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background: #f8fafc; }
 
         .badge {
             display: inline-block;
-            padding: 0.25rem 0.5rem;
+            padding: .3rem .45rem;
             border: 2px solid #000;
-            font-size: 0.7rem;
+            box-shadow: 2px 2px 0 #000;
+            font-size: .65rem;
             font-weight: 800;
             text-transform: uppercase;
-            box-shadow: 2px 2px 0px #000;
         }
 
         .badge-safe { background: var(--accent-green); color: #000; }
         .badge-threat { background: var(--accent-red); color: #fff; }
         .badge-warn { background: var(--accent-yellow); color: #000; }
 
-        /* Utility/Decoration */
-        .glitch-bar {
-            height: 10px;
-            background: linear-gradient(90deg, #000 25%, var(--accent-yellow) 25%, var(--accent-yellow) 50%, var(--accent-red) 50%, var(--accent-red) 75%, var(--accent-cyan) 75%);
-            border: var(--border-stroke);
-            margin-bottom: 1.5rem;
+        @media (max-width: 991px) {
+            .container { grid-template-columns: 1fr; }
+
+            .status-card .value {
+                font-size: clamp(1.1rem, 3vw, 1.7rem);
+            }
         }
+
+        @media (max-width: 600px) {
+            body { padding: 1rem .75rem; }
+            .ticker-wrap { margin-bottom: 1.5rem; }
+            .container { gap: 1.5rem; }
+            .cyber-box { padding: 1rem; }
+
+            .cyber-box-header {
+                margin: -1rem -1rem 1.25rem;
+                padding: .7rem;
+                font-size: .95rem;
+            }
+
+            .tag { font-size: .55rem; padding: 2px 4px; }
+
+            .metrics-grid { gap: .85rem; }
+
+            .status-card {
+                min-height: 125px;
+                padding: .8rem;
+            }
+
+            .status-card .value { font-size: 1.2rem; }
+            .status-card .title { font-size: .62rem; }
+            .status-card .metric-note { font-size: .58rem; }
+            .btn-brutal { font-size: .95rem; }
+
+            th, td {
+                padding: .6rem;
+                font-size: .68rem;
+            }
+        }
+
+        @media (max-width: 350px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+        }
+
+/* Fix metric typography and prevent ugly text wrapping */
+.status-card {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.status-card .value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(1.1rem, 1.5vw, 1.65rem);
+    font-weight: 900;
+    line-height: 1.25;
+    white-space: nowrap;
+    overflow-wrap: normal;
+    word-break: normal;
+    letter-spacing: -0.5px;
+}
+
+#metric-risk {
+    font-size: clamp(1rem, 1.35vw, 1.5rem);
+}
+
+#metric-result {
+    font-size: clamp(1rem, 1.25vw, 1.4rem);
+}
+
+#metric-trusted {
+    font-size: clamp(0.9rem, 1.15vw, 1.2rem);
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+.status-card .title {
+    font-size: 0.7rem;
+    line-height: 1.45;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.status-card .metric-note {
+    font-size: 0.65rem;
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+@media (max-width: 600px) {
+    .status-card .value {
+        font-size: 1.05rem;
+    }
+
+    #metric-risk,
+    #metric-result {
+        font-size: 0.95rem;
+    }
+
+    #metric-trusted {
+        font-size: 0.85rem;
+    }
+}
+
     </style>
 </head>
 
 <body>
-
-    <!-- Header Ticker -->
     <div class="ticker-wrap">
         <div class="ticker">
-            SYSTEM STATUS: ONLINE // MODEL ENGINE: RANDOM_FOREST v2.1 // THREAT LEVEL: ELEVATED // SCANNING ACTIVE NETWORK TRAFFIC // NO VIBECODED GRADIENTS ALLOWED // SYSTEM STATUS: ONLINE //
+            SYSTEM STATUS: ONLINE // PHISHING DETECTION ENGINE // URL ANALYSIS ACTIVE // THREAT MONITORING ENABLED // SYSTEM STATUS: ONLINE //
         </div>
     </div>
 
     <div class="container">
-        
-        <!-- Sidebar Controls -->
-        <div class="sidebar">
-            <div class="cyber-box">
-                <div class="cyber-box-header">
-                    <span>CONFIG</span>
-                    <span class="tag">CTRL_PANEL</span>
-                </div>
-
-                <div class="input-group">
-                    <label for="model-select">ML Classifier Engine</label>
-                    <select id="model-select">
-                        <option>RANDOM_FOREST (OPTIMIZED)</option>
-                        <option>LOGISTIC_REGRESSION</option>
-                        <option>FUSION_ENSEMBLE_v1</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label for="threshold">Sensitivity Threshold</label>
-                    <input type="text" id="threshold" value="0.85_STRICT">
-                </div>
-
-                <button class="btn-brutal" style="margin-bottom: 1rem;">RETRAIN MODEL</button>
-                <button class="btn-brutal btn-danger">PURGE CACHE</button>
-            </div>
-            
-            <div class="glitch-bar" style="margin-top: 1.5rem;"></div>
-
-            <div class="cyber-box">
+        <aside class="sidebar">
+            <section class="cyber-box">
                 <div class="cyber-box-header">
                     <span>METRICS</span>
+                    <span class="tag">MODEL_STATS</span>
                 </div>
-                <div class="status-card" style="margin-bottom: 1rem;">
-                    <div class="title">ACCURACY RATE</div>
-                    <div class="value">98.42%</div>
-                </div>
-                <div class="status-card">
-                    <div class="title">LATENCY</div>
-                    <div class="value">12ms</div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Main Workspace -->
-        <div class="main-content">
-            
-            <!-- Scan Box -->
-            <div class="cyber-box" style="margin-bottom: 2rem;">
+                <div class="metrics-grid">
+                    <div class="status-card metric-cyan">
+                        <div class="title">Detection Engine</div>
+                        <div class="value">FUSION</div>
+                        <div class="metric-note">Numeric + NLP analysis</div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="title">Decision Threshold</div>
+                        <div class="value" id="metric-threshold">--</div>
+                        <div class="metric-note">Threshold returned by API</div>
+                    </div>
+
+                    <div class="status-card metric-yellow">
+                        <div class="title">Last Scan Risk</div>
+                        <div class="value" id="metric-risk">--</div>
+                        <div class="metric-note">Risk score out of 100</div>
+                    </div>
+
+                    <div class="status-card">
+                        <div class="title">Last Classification</div>
+                        <div class="value" id="metric-result">READY</div>
+                        <div class="metric-note">Latest prediction</div>
+                    </div>
+
+                    <div class="status-card metric-green">
+                        <div class="title">Fusion Probability</div>
+                        <div class="value" id="metric-confidence">--</div>
+                        <div class="metric-note">Probability returned by fusion model</div>
+                    </div>
+
+                    <div class="status-card metric-red">
+                        <div class="title">Trusted Domain Match</div>
+                        <div class="value" id="metric-trusted">NONE</div>
+                        <div class="metric-note" id="metric-trusted-note">No trusted domain match reported</div>
+                    </div>
+                </div>
+            </section>
+        </aside>
+
+        <main class="main-content">
+            <section class="cyber-box">
                 <div class="cyber-box-header">
                     <span>PHISHING ENGINE // URL INSPECTOR</span>
-                    <span class="tag" style="background: var(--accent-yellow);">LIVE</span>
+                    <span class="tag" style="background:var(--accent-yellow)">LIVE</span>
                 </div>
 
                 <div class="input-group">
-                    <label for="target-url">ENTER TARGET URL FOR DEEP ANALYSIS</label>
-                    <input type="text" id="target-url" placeholder="https://suspicious-domain-verification.com/login/auth">
+                    <label for="target-url">Enter Target URL for Deep Analysis</label>
+                    <input
+                        type="text"
+                        id="target-url"
+                        placeholder="https://suspicious-domain.com/login"
+                        autocomplete="url"
+                    >
                 </div>
 
-                <button class="btn-brutal" style="background: var(--accent-yellow);">RUN DIAGNOSTIC SCAN</button>
-            </div>
+                <button class="btn-brutal" type="button">RUN DIAGNOSTIC SCAN</button>
+            </section>
 
-            <!-- Last Result / Alert -->
-            <div class="alert-brutal alert-danger">
-                <div class="alert-icon">⚠️</div>
+            <section class="alert-brutal alert-success" aria-live="polite">
+                <div class="alert-icon">✓</div>
                 <div>
-                    <div style="font-size: 1.1rem; text-transform: uppercase; font-family: 'Space Grotesk', sans-serif; font-weight: 900;">MALICIOUS POINTER DETECTED</div>
-                    <div style="font-size: 0.8rem; margin-top: 0.2rem;">Target URL matches high-risk heuristics. Fusion score: 0.962 (HIGH CONFIDENCE)</div>
+                    <div style="font-size:1.1rem;text-transform:uppercase;">SYSTEM READY</div>
+                    <div style="font-size:.8rem;margin-top:.35rem;">Enter a URL to run a phishing detection scan.</div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Evaluation Logs Data Table -->
-            <div class="cyber-box">
+            <section class="cyber-box">
                 <div class="cyber-box-header">
                     <span>INSPECTION QUEUE / RECENT EVALUATIONS</span>
                 </div>
@@ -410,42 +507,16 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>12:28:04</td>
-                                <td>https://account-update-bank.com</td>
-                                <td><span class="badge badge-threat">PHISHING</span></td>
-                                <td>0.98</td>
-                            </tr>
-                            <tr>
-                                <td>12:25:31</td>
-                                <td>https://github.com/project/ml</td>
-                                <td><span class="badge badge-safe">LEGITIMATE</span></td>
-                                <td>0.02</td>
-                            </tr>
-                            <tr>
-                                <td>12:21:10</td>
-                                <td>http://secure-verify-paypal.xyz</td>
-                                <td><span class="badge badge-threat">PHISHING</span></td>
-                                <td>0.91</td>
-                            </tr>
-                            <tr>
-                                <td>12:15:44</td>
-                                <td>https://docs.google.com/spreadsheets</td>
-                                <td><span class="badge badge-safe">LEGITIMATE</span></td>
-                                <td>0.05</td>
-                            </tr>
-                            <tr>
-                                <td>12:02:18</td>
-                                <td>http://login-attempt-service.net</td>
-                                <td><span class="badge badge-warn">SUSPICIOUS</span></td>
-                                <td>0.67</td>
+                                <td colspan="4">No scans performed in this session.</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-        </div>
+            </section>
+        </main>
     </div>
+
+    <script src="/static/script.js"></script>
     <script src="http://127.0.0.1:8000/static/script.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 from src.url_utils import canonicalize_url, get_host, registered_domain
 
 TRUSTED_DOMAINS = {
@@ -37,7 +38,8 @@ TRUSTED_DOMAINS = {
     "indiatimes.com", "hindustantimes.com", "thehindu.com", "ndtv.com",
     "swiggy.com", "zomato.com", "paytm.com", "phonepe.com", "myntra.com",
     "naukri.com", "linkedin.cn", "baidu.com", "qq.com", "taobao.com",
-    "alibaba.com", "aliexpress.com", "yandex.ru", "vk.com", "naver.com","*.gov.uk","*.gov.in"
+    "alibaba.com", "aliexpress.com", "yandex.ru", "vk.com", "naver.com",
+    "*.gov.uk", "*.gov.in", "canada.ca"
 }
 
 UNTRUSTED_HOSTS = {
@@ -46,6 +48,25 @@ UNTRUSTED_HOSTS = {
     "storage.googleapis.com", "groups.google.com", "gist.github.com",
     "pages.github.com",
 }
+
+GOVERNMENT_SUFFIXES = {
+    "gov", "gov.in", "gov.uk", "gov.au", "govt.nz",
+    "gouv.fr", "gob.mx", "gob.es", "gov.br", "go.jp",
+    "gov.sg", "gov.za", "gc.ca"
+}
+
+
+def is_government_domain(host: str) -> bool:
+    host = host.lower().rstrip(".")
+    labels = host.split(".")
+
+    if len(labels) < 2:
+        return False
+
+    return any(
+        host.endswith("." + suffix) or host == suffix
+        for suffix in GOVERNMENT_SUFFIXES
+    )
 
 
 def trusted_domain(url: str):
@@ -74,11 +95,8 @@ def trusted_domain(url: str):
                 if host == suffix or host.endswith("." + suffix):
                     return suffix
 
-            elif trusted.startswith("*"):
-                suffix = trusted[1:].lower()
-
-                if suffix and (host == suffix or host.endswith("." + suffix)):
-                    return suffix
+        if is_government_domain(host):
+            return domain
 
         return None
 
